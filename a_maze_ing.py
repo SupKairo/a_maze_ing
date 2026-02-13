@@ -3,15 +3,17 @@ import os
 from config_validation import read_config, validation
 from mazegen import MazeGenerator
 from mazegen.maze_display import MazeDisplay
-from typing import Tuple
+from typing import Tuple, Optional
 
 
 def clear_screen() -> None:
+    """Clear the terminal screen."""
     print("\033[2J\033[H", end="")
     os.system("clear")
 
 
 def set_color(color: str) -> str:
+    """Return ANSI escape code for the specified color."""
     colors = {
         'reset': "\033[0m",
         'red': "\033[91m",
@@ -107,9 +109,10 @@ def main() -> None:
     exit_: Tuple[int, int] = config["EXIT"]
     output: str = config["OUTPUT_FILE"]
     perfect: bool = config["PERFECT"]
+    seed: Optional[int] = config.get("SEED")
 
     show_path: bool = False
-    animation_speed: float = 0.03
+    animation_speed: float = 0.0001
     pattern_color: str = "yellow"
     wall_color: str = "white"
     algorithm: str = "backtracking"
@@ -120,7 +123,7 @@ def main() -> None:
     clear_screen()
     print("Generating maze...\n")
 
-    maze = MazeGenerator(width, height)
+    maze = MazeGenerator(width, height, seed=seed)
     maze.add_42_pattern()
     maze.generate_backtracking(entry, display=display, delay=animation_speed)
     maze.reset_visited()
@@ -146,7 +149,7 @@ def main() -> None:
             clear_screen()
             print("Regenerating maze...\n")
 
-            maze = MazeGenerator(width, height)
+            maze = MazeGenerator(width, height, seed=seed)
             maze.add_42_pattern()
 
             if algorithm == 'backtracking':

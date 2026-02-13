@@ -9,5 +9,10 @@ description = "Reusable maze generation module"
 readme = "README.md"
 requires-python = ">=3.10"
 
+authors = [
+    {name = "rhssayn"},
+    {name = "mlakhlil"}
+]
+
 [tool.setuptools.packages.find]
 where = ["."]

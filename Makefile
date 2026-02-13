@@ -7,6 +7,7 @@ install:
 	@echo "Installing dependencies..."
 	$(PIP) install --upgrade pip
 	$(PIP) install flake8 mypy
+	$(PIP) python3 -m pip install --upgrade build
 	@echo "Dependencies installed successfully!"
 
 run:
