@@ -2,7 +2,7 @@ from typing import Any, Dict, List
 
 
 def read_config(filename: str) -> Dict[str, Any]:
-    """Read configuration from file with case-insensitive keys."""
+    """Read and parse maze configuration file into a dictionary."""
     config: Dict[str, Any] = {}
 
     try:
@@ -21,7 +21,7 @@ def read_config(filename: str) -> Dict[str, Any]:
 
                 if not raw_value:
                     raise ValueError(f"{key} cannot be empty")
-                
+
                 value: Any = raw_value
 
                 if key in ("WIDTH", "HEIGHT"):
@@ -47,7 +47,7 @@ def read_config(filename: str) -> Dict[str, Any]:
                         value = False
                     else:
                         raise ValueError("PERFECT must be True or False")
-                
+
                 elif key == "SEED":
                     try:
                         value = int(raw_value)
@@ -66,11 +66,11 @@ def read_config(filename: str) -> Dict[str, Any]:
 
 
 def validation(config: Dict[str, Any]) -> None:
-    """Validate configuration values."""
+    """Validate configuration parameters and check for errors."""
     required_keys: List[str] = [
         "WIDTH", "HEIGHT", "ENTRY", "EXIT", "OUTPUT_FILE", "PERFECT"
     ]
-    
+
     optional_keys: List[str] = ["SEED"]
 
     for key in required_keys:
@@ -89,7 +89,7 @@ def validation(config: Dict[str, Any]) -> None:
 
     if not isinstance(width, int) or not isinstance(height, int):
         raise ValueError("WIDTH and HEIGHT must be integers")
-    
+
     if width <= 0 or height <= 0:
         raise ValueError("WIDTH and HEIGHT must be greater than 0")
 
@@ -110,15 +110,15 @@ def validation(config: Dict[str, Any]) -> None:
 
     if entry == exit_:
         raise ValueError("ENTRY and EXIT cannot be the same")
-    
+
     if not isinstance(output_file, str) or not output_file.strip():
         raise ValueError("OUTPUT_FILE must be a non-empty string")
-    
+
     if "SEED" in config:
         seed = config["SEED"]
         if not isinstance(seed, int):
             raise ValueError("SEED must be an integer")
-    
+
     perfect = config["PERFECT"]
     if not isinstance(perfect, bool):
         raise ValueError("PERFECT must be True or False")

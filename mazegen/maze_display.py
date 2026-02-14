@@ -46,6 +46,7 @@ class MazeDisplay:
     BG_BRIGHT_WHITE = "\033[107m"
 
     def __init__(self, width: int, height: int) -> None:
+        """Initialize display with maze dimensions and default colors."""
         self.width: int = width
         self.height: int = height
 
@@ -61,10 +62,12 @@ class MazeDisplay:
         }
 
     def set_color(self, element: str, color: str) -> None:
+        """Set custom color for a display element."""
         if element in self.colors:
             self.colors[element] = color
 
     def set_pattern_color(self, color_name: str) -> None:
+        """Set the '42' pattern background color by name."""
         color_map = {
             'cyan': self.BG_BRIGHT_CYAN,
             'yellow': self.BG_BRIGHT_YELLOW,
@@ -84,11 +87,13 @@ class MazeDisplay:
 
     @staticmethod
     def clear_screen() -> None:
+        """Clear terminal screen using ANSI escape codes."""
         print("\033[H", flush=True)
 
     def path_to_cells(self,
                       entry: Tuple[int, int],
                       path: str) -> Set[Tuple[int, int]]:
+        """Convert path string to set of cell coordinates."""
         x, y = entry
         cells: Set[Tuple[int, int]] = {(x, y)}
 
@@ -115,6 +120,7 @@ class MazeDisplay:
                       show_generation: bool = True,
                       visited_cells: Optional[Set[Tuple[int, int]]] = None
                       ) -> None:
+        """Render maze grid as ASCII art with colors."""
         path_cells: Set[Tuple[int, int]] = set()
         if path:
             path_cells = self.path_to_cells(entry, path)

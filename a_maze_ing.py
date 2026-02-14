@@ -29,6 +29,7 @@ def set_color(color: str) -> str:
 
 
 def display_menu() -> None:
+    """Display the interactive maze control menu."""
     print("\n" + "="*50)
     print(" "*16 + "\033[43m MAZE CONTROL MENU \033[0m")
     print("="*50)
@@ -42,12 +43,13 @@ def display_menu() -> None:
 
 
 def get_user_choice() -> str:
+    """Get and return user's menu choice as a string."""
     choice = input("\nEnter your choice: ").strip().lower()
     return choice
 
 
 def choose_algorithm(current: str) -> str:
-    """Let user choose maze generation algorithm."""
+    """Prompt user to select a maze generation algorithm."""
     print(f"\nCurrent algorithm: {current.upper()}")
     print("\nAvailable algorithms:")
     print("  1. Backtracking (DFS) - Long winding corridors")
@@ -65,6 +67,7 @@ def choose_algorithm(current: str) -> str:
 
 
 def choose_color(current: str) -> str:
+    """Prompt user to select a color from available options."""
     print(f"\nCurrent color: {current.upper()}")
     print("Available colors:")
     print(f"{set_color('red')}  1. Red")
@@ -90,6 +93,8 @@ def choose_color(current: str) -> str:
 
 
 def main() -> None:
+    """Main program entry point - generate, solve,
+    and display maze with interactive menu."""
     if len(sys.argv) != 2:
         print("Usage: python3 a_maze_ing.py <config_file>")
         sys.exit(1)
